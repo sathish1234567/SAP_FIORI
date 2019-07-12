@@ -19,4 +19,9 @@ step2 :
 2. How to call the formatter functionality in SAP UI5?
 try to call the formatter with parts and the formatter function:
 
+for multiple properties:
+text="{ parts: [ {path: 'ChDateTime'},{path: 'WdDateTime'}  ], formatter: 'myapp.util.Formatter.getLocaleDateTimeStr' }"
+
+for single properties:
 text="{ parts: [ {path: 'ChDateTime'} ], formatter: 'myapp.util.Formatter.getLocaleDateTimeStr' }"
+
