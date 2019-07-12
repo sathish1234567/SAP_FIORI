@@ -1,0 +1,13 @@
+1.  Difference between jQuery.Sap.require/declare and sap.ui.define?
+jQuery.Sap.require --> it work as import a file
+jQuery.Sap.declare --> it is use to create the external file for custom functionality
+
+Ex: 
+jQuery.sap.declare("<component name>.<folder name>.<filename>"); for Exporting
+<component name>.<folder name>.<filename> = {
+ add = function(a, b){
+ return a+b;
+ }
+}
+
+jQuery.sap.require("<component name>.<folder name>.<filename>");--> importing of previous 
