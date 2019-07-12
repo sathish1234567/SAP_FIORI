@@ -10,4 +10,13 @@ jQuery.sap.declare("<component name>.<folder name>.<filename>"); for Exporting
  }
 }
 
-jQuery.sap.require("<component name>.<folder name>.<filename>");--> importing of previous 
+How to use the Exporting file in another file.
+step1 : jQuery.sap.require("<component name>.<folder name>.<filename>");--> importing of previous 
+step2 : 
+
+
+
+2. How to call the formatter functionality in SAP UI5?
+try to call the formatter with parts and the formatter function:
+
+text="{ parts: [ {path: 'ChDateTime'} ], formatter: 'myapp.util.Formatter.getLocaleDateTimeStr' }"
