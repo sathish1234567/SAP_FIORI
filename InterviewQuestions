@@ -25,3 +25,31 @@ text="{ parts: [ {path: 'ChDateTime'},{path: 'WdDateTime'}  ], formatter: 'myapp
 for single properties:
 text="{ parts: [ {path: 'ChDateTime'} ], formatter: 'myapp.util.Formatter.getLocaleDateTimeStr' }"
 
+
+3. How system is calling index.html file?
+Ans. in web.xml written as <welcome-file>index.html</welcome-file>, while executing the sap ui5 project tomcat server first executes the 
+file web.xml only in that we mentioned file as <welcome-file> tag is first executes.
+<webapp>
+<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</webapp>
+
+
+4. How system executing the local server ?
+Ans: because of web.xml of file --> we mentioned as proxy and the local path based on the tomcat server executing the our application in local,
+
+Ex:
+	<servlet>
+		<servlet-name>SimpleProxyServlet</servlet-name>
+		<servlet-class>com.sap.ui5.proxy.SimpleProxyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SimpleProxyServlet</servlet-name>
+		<url-pattern>/proxy/*</url-pattern>
+	</servlet-mapping>
+ 
+ <context-param>
+	 <param-name>com.sap.ui5.proxy.REMOTE_LOCATION</param-name>
+	 <param-value>http://XXXXXXX.bdd.dev.XXX.com:8000</param-value>
+	</context-param>
