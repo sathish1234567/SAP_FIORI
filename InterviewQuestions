@@ -56,3 +56,14 @@ Ex:
 
 5. in WEB IDE which file is called first?
 Ans in WEB IDEX Component.js file is called first from there we can called the manifest.json file included.
+
+
+6. How to bind the mockdata model(json)
+Ans: var json = new sap.ui.model.json.JSONModel("model/data.json");	// binding mock data to jsonModel
+	this.getView().setModel(json);					// binding json model to view		
+	
+7. What is the this.getView()?
+Ans this is the global variable in javascript after render the view this view data is avaialble in this variable, 
+if you want use the view details in controller use the "this.getView()" to get the view components.
+	
+	
