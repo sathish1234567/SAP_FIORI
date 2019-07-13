@@ -53,3 +53,6 @@ Ex:
 	 <param-name>com.sap.ui5.proxy.REMOTE_LOCATION</param-name>
 	 <param-value>http://XXXXXXX.bdd.dev.XXX.com:8000</param-value>
 	</context-param>
+
+5. in WEB IDE which file is called first?
+Ans in WEB IDEX Component.js file is called first from there we can called the manifest.json file included.
