@@ -1,0 +1,19 @@
+Diffrence between this.getView().byId() and this.byId()?
+
+
+this.getView().byId(...) is equivalent to this.byId(...). 
+
+Take a look at the source code to see what byId does:
+
+// sap.ui.core.mvc.Controller
+Controller.prototype.byId = function(sId) {
+  return this.oView ? this.oView.byId(sId) : undefined;
+};
+
+As you can see, this.byId is just a shortcut for this.getView().byId. They both can be used to access controls defined in the view.
+E.g.:
+this.byId("myPanel");
+
+sap.ui.getCore().byId(...)API, on the other hand, awaits a fully concatenated global ID which is why you cannot simply exchange this.byId with sap.ui.getCore().byId if the target control is a view descendant.
+
+sap.ui.getCore().byId("__xmlview0--myPanel"); // <-- Please don't do that!
