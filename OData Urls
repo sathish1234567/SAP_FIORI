@@ -1,0 +1,23 @@
+Get Entity Set: for multiple same property values
+__________________
+
+When you are passing different fields as part of Filter parameters you need to use AND only ( which is as below as per your URL )
+
+?$filter=Customer eq '32' and Name eq 'AT'
+
+
+
+When you want to pass multiple values for the same fields as part of Filter parameters you can use OR in combination with AND as below
+
+
+
+?$filter=( Customer eq '32' or Customer eq '33' ) and ( Name eq 'AT' or Name eq 'BT' )
+
+
+
+?$filter=( Customer eq '32' or Customer eq '33' )
+
+
+
+?$filter=( Name eq 'AT' or Name eq 'BT' )
+
