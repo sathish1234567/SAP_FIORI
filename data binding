@@ -1,3 +1,6 @@
+Element Binding:
+
+
 resource model binding: Named modeldata binding
 i18n
   |_i18n.properties
@@ -30,6 +33,11 @@ Complex property binding:
  }
  
  <Text text="{/address/city}" />  
+ 
+ 
+ 
+ 
+ Aggregation Binding"
  
  for array we have to use the renderring the ui elt. --> aggregation binding.
  Aggregation binding:
