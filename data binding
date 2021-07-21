@@ -21,4 +21,22 @@ in manifest:
 }
 }
 default model data binding: <Input value"{/lastName}" />  --> lastname is available in "json" file
+_____________________________________________________________________________________________________________
+
+Complex property binding:
+{
+  "address": { "city":"hyd" },
+  "hubbles":[{"name" :"tennis"},{"name":"cricket"}]
+ }
+ 
+ <Text text="{/address/city}" />  
+ 
+ for array we have to use the renderring the ui elt. --> aggregation binding.
+ Aggregation binding:
+ <List items="{/hobbies}">
+    <StandardListItem title="{name}" />  --> it is treating as the template, how the item data displaying
+ </List
+ 
+ 
+
 
