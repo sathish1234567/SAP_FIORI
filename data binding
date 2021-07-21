@@ -1,0 +1,24 @@
+resource model binding: Named modeldata binding
+i18n
+  |_i18n.properties
+      |_title=Title
+in manifest.json
+"maodels":{
+"i18n":{
+ "type":"sap.ui.model.resource.ResourceModel",
+ "settings":{ "bundleName":<name sapce>.<folder>.<file w/o extension>"
+  }
+}
+}
+title="{i18n>title}"    -> i18n is the model name --> check it in manifest.json -->models section(Here bibd the path of the i18n.properties) --> i18n named model
+_______________________________________________________________________________________________________________________
+
+for json model --> default model data binding
+in manifest:
+"models":{
+"":{ "uri":"<namespace>.<folder>.<filename>",  --> empty "" --> default binding.
+     "type":"sap.ui.model.json.JSONModel"
+}
+}
+default model data binding: <Input value"{/lastName}" />  --> lastname is available in "json" file
+
