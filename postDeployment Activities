@@ -1,0 +1,16 @@
+Activity Name     | required?     | system      |Report
+__________________________________________________________________________
+ICF Node
+activation        | yes           | gateway     | SICF
+__________________________________________________________
+BSP Cache         | yes           | gateway     | SE38- 1. /UI5/APP_INDEX_CALCULATE
+Clearance                                               2. /UI5/UPDATE_CACHEBUSTER
+__________________________________________________________
+oData Cache       | yes           | gateway     | /n/IWFND/CACHE_CLEANUP 
+Clearance
+__________________________________________________________
+Catalog Cache     | yes           | gateway     | 1. /UI2/PAGE_CACHE_RESET , 
+Clearance                                         2. /UI2/PAGE_CACHE_CREATE
+                                                  3. /UI2/CHIP_SYNCHRONIZE_CACHE
+ 
+
