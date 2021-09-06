@@ -1,0 +1,188 @@
+cruddemo --> webapp folder
+
+View Code:
+_________
+
+
+crud_demo.view
+
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+		controllerName="crud_demo.crud_demo" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.commons.layout">
+	<Page title="CRUD Operations">
+		<content>
+	<l:AbsoluteLayout width="10rem" height="10rem"></l:AbsoluteLayout>
+	<VBox xmlns="sap.m" id="vboxid">		
+		<items>		
+		<HBox xmlns="sap.m">		
+		<items>	
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>	
+		<Button xmlns="sap.m" id="cbtn" press="oDataCall" text="Create"></Button>
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Button xmlns="sap.m" id="rbtn" press="oDataCall" text="Read"></Button>
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Button xmlns="sap.m" id="ubtn" press="oDataCall" text="Update"></Button>
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Button xmlns="sap.m" id="dbtn" press="oDataCall" text="Delete"></Button>
+		</items>
+		</HBox>
+				
+		<HBox xmlns="sap.m">		
+		<items>		
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Input xmlns="sap.m" 	id="uniqueid" placeholder="ID" value="1"></Input>
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Input xmlns="sap.m" 	id="nameid" placeholder="Name" value="test"></Input>
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Input xmlns="sap.m" 	id="emailid" placeholder="Email" value="test@gmail.com"></Input>
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Input xmlns="sap.m" 	id="mobid" placeholder="Mobile" value="8888888888"></Input>
+		</items>
+		</HBox>
+		
+		
+		<HBox xmlns="sap.m">		
+		<items>		
+		<l:AbsoluteLayout width="20px" height="20px"></l:AbsoluteLayout>
+		<Table xmlns="sap.m"
+		id="userdatatable" headerText="User Data">		
+		<items>
+			<ListItemBase xmlns="sap.m" id="id1"></ListItemBase>
+		</items>		
+		<columns> <!-- sap.m.Column -->
+			<Column xmlns="sap.m"> <header> <Text xmlns="sap.m" text="Id" ></Text></header></Column>
+			<Column xmlns="sap.m"> <header> <Text xmlns="sap.m" text="Name" ></Text></header></Column>
+			<Column xmlns="sap.m"> <header> <Text xmlns="sap.m" text="Email" ></Text></header></Column>
+			<Column xmlns="sap.m"> <header> <Text xmlns="sap.m" text="Mobile" ></Text></header></Column>
+		</columns>
+		</Table>
+		</items>
+		</HBox>		
+		</items> <!-- sap.ui.core.Control -->
+</VBox>
+		</content>
+	</Page>
+</core:View>
+
+crud_demo.controller:
+____________________
+
+onInit: function() {
+		that = this;
+		// Create Model Instance of the oData service
+		var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/sap/ZCRUD_DEMO_SRV");
+		sap.ui.getCore().setModel(oModel, "myModel");
+	},
+  
+  
+
+oDataCall:function(oEvent)
+ 	{
+		// call oData service's function based on which button is clicked.
+		debugger;
+		var myModel = sap.ui.getCore().getModel("myModel");
+		myModel.setHeaders({
+			"X-Requested-With" : "X"
+		});
+		// CREATE******************
+		if ('Create' == oEvent.oSource.mProperties.text) {
+			var obj = {};
+			obj.id = that.getView().byId("uniqueid").getValue();
+			obj.name = that.getView().byId("nameid").getValue();
+			obj.email = that.getView().byId("emailid").getValue();
+			obj.mobile = that.getView().byId("mobid").getValue();
+			myModel.create('/userdataSet', obj, {
+				success : function(oData, oResponse) {
+					debugger;
+					alert('Record Created Successfully...');
+				},
+				error : function(err, oResponse) {
+					debugger;
+					alert('Error while creating record - '
+							.concat(err.response.statusText));
+				}
+			});
+		}
+		// READ******************
+		else if ('Read' == oEvent.oSource.mProperties.text) {
+			var readurl = "/userdataSet?$filter=(id eq '')";
+			myModel.read(readurl, {
+				success : function(oData, oResponse) {
+					debugger;
+					var userdata = new sap.ui.model.json.JSONModel({
+						"Result" : oData.results
+					});
+					var tab = that.getView().byId("userdatatable");
+					tab.setModel(userdata);
+					var i = 0;
+					tab.bindAggregation("items", {
+						path : "/Result",
+						template : new sap.m.ColumnListItem({
+							cells : [ new sap.ui.commons.TextView({
+								text : "{id}",
+								design : "H5",
+								semanticColor : "Default"
+							}), new sap.ui.commons.TextView({
+								text : "{name}",
+								design : "H5",
+								semanticColor : "Positive"
+							}), new sap.ui.commons.TextView({
+								text : "{email}",
+								design : "H5",
+								semanticColor : "Positive"
+							}), new sap.ui.commons.TextView({
+								text : "{mobile}",
+								design : "H5",
+								semanticColor : "Positive"
+							}), ]
+						})
+					});
+				},
+				error : function(err) {
+					debugger;
+				}
+			});
+		}		
+		// UPDATE******************
+		if ('Update' == oEvent.oSource.mProperties.text) {
+			var obj = {};
+			obj.id = that.getView().byId("uniqueid").getValue();
+			obj.email = that.getView().byId("emailid").getValue();
+			var updateurl = "/userdataSet(id='"
+					+ that.getView().byId("uniqueid").getValue() + "')";
+
+			myModel.update(updateurl, obj, {
+				success : function(oData, oResponse) {
+					debugger;
+					alert('Record Updated Successfully...');
+				},
+				error : function(err, oResponse) {
+					debugger;
+					alert('Error while updating record - '
+							.concat(err.response.statusText));
+				}
+			});
+		}		
+		// DELETE******************
+		if ('Delete' == oEvent.oSource.mProperties.text) {
+			var delurl = "/userdataSet(id='"
+					+ that.getView().byId("uniqueid").getValue() + "')";
+			myModel.remove(delurl, {
+				success : function(oData, oResponse) {
+					debugger;
+					alert('Record Removed Successfully...');
+				},
+				error : function(err, oResponse) {
+					debugger;
+					alert('Error while removing record - '
+							.concat(err.response.statusText));
+				}
+			});
+		}
+	}
+  
+  
+4. Save, Deploy and Run the application. You should be able to run the application using below URL
+
+http://hostname:8000/sap/bc/ui5_ui5/sap/zcrud_demo/index.html
+
+
