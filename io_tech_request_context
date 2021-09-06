@@ -1,0 +1,47 @@
+Query Operations:
+$orderby:
+
+https://<server>:<port>/.../<service_name>/Products?$orderby=Category desc
+capture the request data in backend.
+
+* to capture the filter data $filter= Category eq '120'.
+* $Filter
+lt_filter = io_tech_request_context->get_filter( )->get_filter_select_options( ).
+LOOP AT lt_filter INTO ls_filter WHERE property EQ 'CATEGORY'.
+LOOP AT ls_filter-select_options INTO ls_sel_option.
+CLEAR ls_category_filter.
+MOVE-CORRESPONDING ls_sel_option TO ls_category_filter.
+APPEND ls_category_filter TO lt_category_filter.
+ENDLOOP.
+ENDLOOP.
+
+-->to capture the data for $orderBy=Category desc  <- sorting the category as descending .
+lt_orderby = io_tech_request_context->get_orderby( ).
+lt_orderby
+|_property -- category
+|_order <-- asc/ dsc
+
+READ TABLE lt_orderby INTO ls_orderby INDEX 1.
+IF sy-subrc EQ 0.
+IF ls_orderby-order EQ 'desc'.
+CASE ls_orderby-property.
+WHEN 'PRODUCT_ID'.
+SORT lt_entityset BY product_id DESCENDING.
+WHEN 'NAME'.
+SORT lt_entityset BY name DESCENDING.
+WHEN 'CATEGORY'.
+SORT lt_entityset BY category DESCENDING.
+ENDCASE.
+ELSEIF ls_orderby-order EQ 'asc'.
+CASE ls_orderby-property.
+WHEN 'PRODUCT_ID'.
+SORT lt_entityset BY product_id ASCENDING.
+WHEN 'NAME'.
+SORT lt_entityset BY name ASCENDING.
+WHEN 'CATEGORY'.
+SORT lt_entityset BY category ASCENDING.
+ENDCASE.
+ENDIF.
+ENDIF.
+
+
