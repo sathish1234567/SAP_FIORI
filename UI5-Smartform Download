@@ -1,0 +1,23 @@
+sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/m/PDFViewer"	
+], function (Controller,PDFViewer) {
+	"use strict";
+
+	return Controller.extend("pdf.ZPDFViewer.controller.Main", {
+		onInit: function () {
+
+		},
+		showPDF: function(oEvent){
+	
+			var opdfViewer = new PDFViewer();
+			this.getView().addDependent(opdfViewer);
+			var sServiceURL = this.getView().getModel().sServiceUrl;
+			var sSource = sServiceURL + "GetPdfSet(Serial='C0003',Filename='')/$value";
+			opdfViewer.setSource(sSource);
+			opdfViewer.setTitle( "My PDF");
+			opdfViewer.open();	
+			
+		}
+	});
+});
