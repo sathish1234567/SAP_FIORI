@@ -1,0 +1,57 @@
+Get the data from json file and that is mapping from mnifest.json file:
+Component.js:
+
+sap.ui.define([
+	"sap/ui/core/UIComponent",
+	"sap/ui/model/json/JSONModel"
+], function(UIComponent, JSONModel) {
+	"use strict";
+
+	return UIComponent.extend("com.openui5.example.Component", {
+
+		metadata: {
+			manifest: "json"
+		},
+
+		init: function() {
+			// call the base component's init function
+			UIComponent.prototype.init.apply(this, arguments);
+			
+			//Create the model and load data from the local JSON file
+			var oModel = new JSONModel("./model/init_data.json");
+			oModel.setDefaultBindingMode("OneWay");
+
+			// set the device model
+			this.setModel(oModel, "init_data");
+		}
+	});
+
+});
+
+manifest.json file:
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"dataSources": {
+			"init_data_alias": {
+				"uri": "model/init_data.json",
+				"type": "JSON"
+			}
+		}
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.openui5.example.i18n.i18n"
+				}
+			},
+			"init_data": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "init_data_alias"
+			}
+		}
+	}
+}
