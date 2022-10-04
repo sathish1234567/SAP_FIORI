@@ -1,0 +1,11 @@
+Q. Fiori Launchpad shell bar disappears?
+
+Ans:
+try
+  {
+       sap.ui.getCore().byId("shell").setHeaderHiding(false);
+  }
+  catch(notInFioriLaunchPad)
+  {
+
+  }
