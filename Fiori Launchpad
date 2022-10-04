@@ -1,0 +1,26 @@
+Defining Configuration Parameters in Customizing:
+________________________________________________________
+You define configuration parameters for the launchpad in Customizing.
+
+In Customizing under Start of the navigation path SAP NetWeaver Next navigation step UI Technologies Next navigation step SAP NetWeaver Business Client End of the navigation path, use transaction /UI2/NWBC_CFG_CUST to define configuration parameters such as THEME.
+
+SAP delivers some parameters with predefined values. This data is available via transaction "/UI2/NWBC_CFG_SAP". 
+
+As a customer you can define the same parameters with a different value in transaction "/UI2/NWBC_CFG_CUST". 
+
+The system always prefers the values that you have defined.
+
+The following parameters are supported:
+Theme:
+______
+Name: THEME
+Translatable: No
+Description: An administrator selects an SAP theme, or a custom theme created with UI theme designer. 
+When the user logs on to the role or cockpit associated with this theme in the back end, NWBC with its overview pages, 
+all Web Dynpro ABAP applications, and service maps are rendered using the specified theme.
+
+When configuring a custom theme, specify the theme ID here.
+
+For further information on theming with UI theme designer, configuration and maintenance of themes, please refer to UI Theme Designer.
+
+For SAP Fiori wave 2, the path filter "SAP_FLP" is provided with the default value "sap_bluecrystal".
